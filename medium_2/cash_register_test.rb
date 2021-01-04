@@ -5,6 +5,7 @@ Minitest::Reporters.use!
 require_relative 'cash_register'
 require_relative 'transaction'
 
+
 class CashRegisterTest < Minitest::Test
   attr_accessor :register, :transaction
   
@@ -45,8 +46,12 @@ class CashRegisterTest < Minitest::Test
     assert_equal(0, transaction.amount_paid)
     
     # Check if amount paid is equal to 50
-    input = StringIO.new("50\n")                  # This simulates us using keyboard to input 50
-    transaction.prompt_for_payment(input: input)
+    user_input = StringIO.new("50\n")                  # This simulates us using keyboard to input 50
+    user_output = StringIO.new
+    
+    # Below, $stdin is being re-asssigned to the object user_input is pointing to, and
+    # #stdout is being re-assinged to the object user_output is pointing to
+    transaction.prompt_for_payment(input: user_input, output: user_output)
     assert_equal(50, transaction.amount_paid)
   end
 end
