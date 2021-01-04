@@ -26,7 +26,3 @@ class CashRegister
     give_receipt(transaction)
   end
 end
-
-register = CashRegister.new(1000)
-
-p register.total_money
