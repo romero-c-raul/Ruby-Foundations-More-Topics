@@ -39,4 +39,14 @@ class CashRegisterTest < Minitest::Test
   def test_give_receipt
     assert_output("You've paid $50.\n") { register.give_receipt(transaction) }
   end
+  
+  def test_prompt_for_payment
+    # Check if we're starting with 0 amount paid
+    assert_equal(0, transaction.amount_paid)
+    
+    # Check if amount paid is equal to 50
+    input = StringIO.new("50\n")                  # This simulates us using keyboard to input 50
+    transaction.prompt_for_payment(input: input)
+    assert_equal(50, transaction.amount_paid)
+  end
 end
